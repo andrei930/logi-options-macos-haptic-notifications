@@ -1,0 +1,34 @@
+name: Build audited Logi plugin
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Build and verify
+        run: bash ./build-ci.sh
+
+      - name: Upload .lplug4 and checksum
+        uses: actions/upload-artifact@v4
+        with:
+          name: NotificationHapticSafe
+          path: |
+            dist/NotificationHapticSafe_1_0_0.lplug4
+            dist/NotificationHapticSafe_1_0_0.lplug4.sha256
+          if-no-files-found: error
