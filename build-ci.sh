@@ -17,4 +17,4 @@ if [[ -z "$PLUGIN_API_DLL" || ! -f "$PLUGIN_API_DLL" ]]; then
   exit 1
 fi
 
-PLUGIN_API_DLL="$PLUGIN_API_DLL" "$ROOT/build-macos.sh"
+PLUGIN_API_DLL="$PLUGIN_API_DLL" bash "$ROOT/build-macos.sh"
