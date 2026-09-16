@@ -1,0 +1,15 @@
+type: plugin4
+name: NotificationHapticSafe
+displayName: Notification Haptic Safe
+description: Local-only haptic feedback when macOS Notification Center presents a notification.
+pluginFileName: NotificationHapticSafePlugin.dll
+version: 1.0.0
+author: Open-source derivative of hyunjun.kim's NotificationHaptic
+copyright: Copyright © 2025 hyunjun.kim; security-minimized derivative
+pluginFolderMac: bin
+supportedDevices: []
+pluginCapabilities:
+  - HasHapticMapping
+minimumLoupedeckVersion: 6.0
+license: MIT
+licenseUrl: https://opensource.org/licenses/MIT
