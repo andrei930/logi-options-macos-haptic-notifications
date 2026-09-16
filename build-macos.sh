@@ -31,7 +31,17 @@ rm -rf "$ROOT/build" "$DIST_DIR/NotificationHapticSafe_1_0_0.lplug4" "$DIST_DIR/
 dotnet build "$PROJECT" -c Release /p:PluginApiDir="$PLUGIN_API_DIR"
 
 "$TOOL_DIR/logiplugintool" pack "$ROOT/build/Release" "$DIST_DIR/NotificationHapticSafe_1_0_0.lplug4"
-"$TOOL_DIR/logiplugintool" verify "$DIST_DIR/NotificationHapticSafe_1_0_0.lplug4"
+
+set +e
+VERIFY_OUTPUT="$("$TOOL_DIR/logiplugintool" verify "$DIST_DIR/NotificationHapticSafe_1_0_0.lplug4" 2>&1)"
+VERIFY_STATUS=$?
+set -e
+printf '%s\n' "$VERIFY_OUTPUT"
+
+if [[ $VERIFY_STATUS -ne 0 ]] || printf '%s\n' "$VERIFY_OUTPUT" | grep -q '^ERROR:'; then
+  echo "ERROR: logiplugintool verification failed." >&2
+  exit 1
+fi
 
 shasum -a 256 "$DIST_DIR/NotificationHapticSafe_1_0_0.lplug4" | tee "$DIST_DIR/NotificationHapticSafe_1_0_0.lplug4.sha256"
 
